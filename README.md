@@ -9,13 +9,13 @@
 6. setup WLAN
     1. mount the newly created boot-partition and `cd` into it
     2. vim .../boot/wpa_supplicant.conf
-```
-country=DE
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-
-network={
-    ssid="$SSID"
-    psk="$KEY"
-}
-```
+    ```
+    country=DE
+    ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+    update_config=1
+    
+    network={
+        ssid="$SSID"
+        psk="$KEY"
+    }
+    ```
