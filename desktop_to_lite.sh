@@ -11,3 +11,4 @@ sudo apt purge -y x11-common bluez gnome-menus gnome-icon-theme gnome-themes-sta
 sudo apt purge -y hicolor-icon-theme gnome-themes-extra-data bluealsa cifs-utils
 sudo apt purge -y desktop-base desktop-file-utils
 sudo apt autoremove -y
+sudo apt autoclean
