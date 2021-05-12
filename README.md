@@ -19,3 +19,15 @@
         psk="$KEY"
     }
     ```
+
+# install k3s
+## enable iptables on debian buster
+if the current raspian is based on debian bust you have to do the following to enable iptables which is needed for k3s
+```
+if grep -q buster /etc/os-release; then
+    sudo iptables -F
+    sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+    sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+    sudo reboot
+fi
+```
