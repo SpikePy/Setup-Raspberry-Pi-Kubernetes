@@ -50,3 +50,6 @@ The  k3s config is stored under */etc/rancher/k3s/k3s.yaml*. Download it to your
 ```
 kubectl completion bash ~/kubectl_completion && sudo mv ~/kubectl_completion /etc/bash_completion.d/kubectl
 ```
+
+## uninstall k3s
+If something went wrong you can uninstall k3s at any time with a script that gets generated while installing k3s: /usr/local/bin/k3s-uninstall.sh
