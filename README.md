@@ -20,14 +20,33 @@
     }
     ```
 
-# install k3s
-## enable iptables on debian buster
+# setup k3s
+## enable iptables on debian buster (https://rancher.com/docs/k3s/latest/en/advanced/#enabling-legacy-iptables-on-raspbian-buster)
 if the current raspian is based on debian bust you have to do the following to enable iptables which is needed for k3s
 ```
 if grep -q buster /etc/os-release; then
     sudo iptables -F
     sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
     sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-    sudo reboot
 fi
+```
+## enable cgroups on debian buster
+append `cgroup_memory=1 cgroup_enable=memory` to `/boot/cmdline.txt` to enable cgroups and restart
+
+## install k3s
+```
+export K3S_KUBECONFIG_MODE="644"
+
+# use MetalLB instead of serviceLB and nginx instead of traefik
+export INSTALL_K3S_EXEC=" --disable servicelb --disable traefik"
+
+# get and run install script
+curl -sfL https://get.k3s.io | sh -
+```
+The  k3s config is stored under */etc/rancher/k3s/k3s.yaml*. Download it to your workstation and move it to ~/.kube/config. Now edit the server ip from localhost to the corresponding raspberry ip
+
+## configure system
+### kubectl bash completion
+```
+kubectl completion bash ~/kubectl_completion && sudo mv ~/kubectl_completion /etc/bash_completion.d/kubectl
 ```
