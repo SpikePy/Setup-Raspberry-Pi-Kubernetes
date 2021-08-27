@@ -1,3 +1,4 @@
+# Install firmware updater
 ```
 sudo apt update
 sudo apt full-upgrade
