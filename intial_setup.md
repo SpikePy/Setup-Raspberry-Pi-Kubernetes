@@ -1,10 +1,11 @@
-# Linux
+#Install Raspian
+## Under Linux
 1. Download the most recent arm64 [image](http://downloads.raspberrypi.org/raspios_arm64/images/)
 2. connect your micro-sd card and find out its device name `lsblk -p`
 3. unzip and write it to the sd-card `unzip -p 2021-03-04-raspios-buster-armhf.zip | sudo dd of=/dev/sdX bs=4M conv=fsync`
 4. change the size of the root partition to span over the whole card with: tbd
 
-# Windows
+## Under Windows
 1. Download the [Raspberry Pi installer](https://www.raspberrypi.org/software/)
 2. Select your disti and write it to the sd card
 
@@ -46,6 +47,7 @@ append `cgroup_memory=1 cgroup_enable=memory` to `/boot/cmdline.txt` to enable c
 
 ## install k3s
 ```
+# Define Permissions of kube config file residing in /etc/rancher/k3s/k3s.yaml
 export K3S_KUBECONFIG_MODE="644"
 
 # use MetalLB instead of serviceLB and nginx instead of traefik
@@ -58,10 +60,13 @@ curl -sfL https://get.k3s.io | sh -
 The  k3s config is stored under */etc/rancher/k3s/k3s.yaml*. Download it to your workstation and move it to ~/.kube/config. Now edit the server ip from localhost to the corresponding raspberry ip
 
 ## configure workstation system
+
 ### kubectl bash completion
+
 ```
 kubectl completion bash ~/kubectl_completion && sudo mv ~/kubectl_completion /etc/bash_completion.d/kubectl
 ```
 
 ## uninstall k3s
+
 If something went wrong you can uninstall k3s at any time with a script that gets generated while installing k3s: /usr/local/bin/k3s-uninstall.sh
