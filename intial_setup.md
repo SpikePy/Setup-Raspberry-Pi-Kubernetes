@@ -11,22 +11,31 @@
 
 
 # Configure *Raspberry Pi OS*
-1. enable ssh
-    1. mount the newly created boot-partition and `cd` into it
-    2. touch .../boot/ssh (windows auto-mounts the *boot* partition)
-2. setup WLAN
-    1. mount the newly created boot-partition and `cd` into it
-    2. vim .../boot/wpa_supplicant.conf
-    ```
-    country=DE
-    ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-    update_config=1
-    
-    network={
-        ssid="$SSID"
-        psk="$KEY"
-    }
-    ```
+
+- enable ssh
+  1. mount the newly created boot-partition and `cd` into it
+  2. touch .../boot/ssh (windows auto-mounts the *boot* partition)
+- setup WLAN
+  1. mount the newly created boot-partition and `cd` into it
+  2. vim .../boot/wpa_supplicant.conf
+  ```
+  country=DE
+  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+  update_config=1
+  
+  network={
+      ssid="$SSID"
+      psk="$KEY"
+  }
+  ```
+- [configure your keyboard layout](https://www.makeuseof.com/change-keyboard-layout-raspberry-pi/) (default=uk)
+  - by running `sudo raspi-config` 
+  - or edititing the config file `sudo nano /etc/default/keyboard`
+  ```
+  XKBMODEL="pc105"
+  XKBLAYOUT="us"
+  XKBVARIANT="altgr-intl"
+  ```
 
 # Setup k3s
 
