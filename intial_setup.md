@@ -1,4 +1,4 @@
-# Install Raspian
+# Install *Raspberry Pi OS*
 ## Under Linux
 1. Download the most recent arm64 [image](http://downloads.raspberrypi.org/raspios_arm64/images/)
 2. connect your micro-sd card and find out its device name `lsblk -p`
@@ -28,12 +28,14 @@
     }
     ```
 
-# setup k3s
+# Setup k3s
+
+## Preparation
 
 - [install options](https://rancher.com/docs/k3s/latest/en/installation/install-options/)
 - [advanced options](https://rancher.com/docs/k3s/latest/en/advanced/)
 
-## [enable iptables on debian buster](https://rancher.com/docs/k3s/latest/en/advanced/#enabling-legacy-iptables-on-raspbian-buster)
+### [enable iptables on debian buster](https://rancher.com/docs/k3s/latest/en/advanced/#enabling-legacy-iptables-on-raspbian-buster)
 if the current raspian is based on debian bust you have to do the following to enable iptables which is needed for k3s
 ```
 if grep -q buster /etc/os-release; then
@@ -42,10 +44,13 @@ if grep -q buster /etc/os-release; then
     sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 fi
 ```
-## enable cgroups on debian buster
+
+### enable cgroups on debian buster
+
 append `cgroup_memory=1 cgroup_enable=memory` to `/boot/cmdline.txt` to enable cgroups and restart
 
-## install k3s
+## Install
+
 ```
 # Define Permissions of kube config file residing in /etc/rancher/k3s/k3s.yaml
 export K3S_KUBECONFIG_MODE="644"
@@ -57,16 +62,16 @@ export INSTALL_K3S_EXEC=" --disable servicelb --disable traefik"
 curl -sfL https://get.k3s.io | sh -
 ```
 
-The  k3s config is stored under */etc/rancher/k3s/k3s.yaml*. Download it to your workstation and move it to ~/.kube/config. Now edit the server ip from localhost to the corresponding raspberry ip
+## Configure Workstation to connect to *k3s*
 
-## configure workstation system
+The  k3s config is stored under */etc/rancher/k3s/k3s.yaml*. Download it to your workstation and move it to ~/.kube/config. Now edit the server ip from localhost to the corresponding raspberry pi ip
 
-### kubectl bash completion
+### [OPTIONAL] Enable *kubectl* bash completion
 
 ```
 kubectl completion bash ~/kubectl_completion && sudo mv ~/kubectl_completion /etc/bash_completion.d/kubectl
 ```
 
-## uninstall k3s
+# Uninstall k3s
 
 If something went wrong you can uninstall k3s at any time with a script that gets generated while installing k3s: /usr/local/bin/k3s-uninstall.sh
