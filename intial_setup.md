@@ -32,7 +32,7 @@
 - [install options](https://rancher.com/docs/k3s/latest/en/installation/install-options/)
 - [advanced options](https://rancher.com/docs/k3s/latest/en/advanced/)
 
-## enable iptables on debian buster (https://rancher.com/docs/k3s/latest/en/advanced/#enabling-legacy-iptables-on-raspbian-buster)
+## [enable iptables on debian buster](https://rancher.com/docs/k3s/latest/en/advanced/#enabling-legacy-iptables-on-raspbian-buster)
 if the current raspian is based on debian bust you have to do the following to enable iptables which is needed for k3s
 ```
 if grep -q buster /etc/os-release; then
