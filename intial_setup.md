@@ -1,4 +1,4 @@
-#Install Raspian
+# Install Raspian
 ## Under Linux
 1. Download the most recent arm64 [image](http://downloads.raspberrypi.org/raspios_arm64/images/)
 2. connect your micro-sd card and find out its device name `lsblk -p`
