@@ -66,7 +66,7 @@ curl -sfL https://get.k3s.io | sh -
 
 The  k3s config is stored under */etc/rancher/k3s/k3s.yaml*. Download it to your workstation and move it to ~/.kube/config. Now edit the server ip from localhost to the corresponding raspberry pi ip
 
-### [OPTIONAL] Enable *kubectl* bash completion
+### Enable *kubectl* bash completion [OPTIONAL]
 
 ```
 kubectl completion bash ~/kubectl_completion && sudo mv ~/kubectl_completion /etc/bash_completion.d/kubectl
