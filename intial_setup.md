@@ -71,6 +71,38 @@ export INSTALL_K3S_EXEC=" --disable servicelb --disable traefik"
 curl -sfL https://get.k3s.io | sh -
 ```
 
+### Setup *Kubernetes Dashboard* [OPTIONAL]
+
+[Project-Page](https://github.com/kubernetes/dashboard)
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml
+
+cat <<EOF > setup_dashboard.yaml
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+EOF
+
+kubectl apply -f setup_dashboard.yaml && rm setup_dashboard.yaml
+```
+
 ## Configure Workstation to connect to *k3s*
 
 The  k3s config is stored under */etc/rancher/k3s/k3s.yaml*. Download it to your workstation and move it to ~/.kube/config. Now edit the server ip from localhost to the corresponding raspberry pi ip
