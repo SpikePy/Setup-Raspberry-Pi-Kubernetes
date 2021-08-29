@@ -18,25 +18,31 @@
 - setup WLAN
   1. mount the newly created boot-partition and `cd` into it
   2. vim .../boot/wpa_supplicant.conf
-  ```
-  country=DE
-  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-  update_config=1
-  
-  network={
-      ssid="$SSID"
-      psk="$KEY"
-  }
-  ```
+     ```
+     country=DE
+     ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+     update_config=1
+     
+     network={
+         ssid="$SSID"
+         psk="$KEY"
+     }
+     ```
 - [configure your keyboard layout](https://www.makeuseof.com/change-keyboard-layout-raspberry-pi/) (default=uk)
-  - by running `sudo raspi-config` 
+  - by running `sudo raspi-config` ➜ *5 Localisation Options* ➜ *L3 Keyboard* ➜
   - or edititing the config file `sudo nano /etc/default/keyboard`
-  ```
-  XKBMODEL="pc105"
-  XKBLAYOUT="us"
-  XKBVARIANT="altgr-intl"
-  ```
-
+    ```
+    XKBMODEL="pc105"
+    XKBLAYOUT="us"
+    XKBVARIANT="altgr-intl"
+    ```
+- configure your timezone (default=London)
+  - by running `sudo raspi-config` ➜ *5 Localisation Options* ➜ *L2 Timezone* ➜ Europe ➜ Berlin
+  - or by manually linking localtime to your timezone
+    ```
+    ln --symbolic /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+    ```
+  
 # Setup k3s
 
 ## Preparation
@@ -45,7 +51,9 @@
 - [advanced options](https://rancher.com/docs/k3s/latest/en/advanced/)
 
 ### [enable iptables on debian buster](https://rancher.com/docs/k3s/latest/en/advanced/#enabling-legacy-iptables-on-raspbian-buster)
+
 if the current raspian is based on debian bust you have to do the following to enable iptables which is needed for k3s
+
 ```
 if grep -q buster /etc/os-release; then
     sudo iptables -F
