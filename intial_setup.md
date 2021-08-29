@@ -76,7 +76,8 @@ curl -sfL https://get.k3s.io | sh -
 [Project-Page](https://github.com/kubernetes/dashboard)
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.3.1/aio/deploy/recommended.yaml
+VERSION_KUBERNETES_DASHBOARD=v2.3.1
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/${VERSION_KUBERNETES_DASHBOARD}/aio/deploy/recommended.yaml
 
 cat <<EOF > setup_dashboard.yaml
 ---
@@ -101,7 +102,15 @@ subjects:
 EOF
 
 kubectl apply -f setup_dashboard.yaml && rm setup_dashboard.yaml
+
+# Get Login-Token
+kubectl describe secret --namespace=kubernetes-dashboard admin-user-token | grep token:
+
+# Forward Ports from k3s machine to local
+kubectl proxy
 ```
+
+Open the *[Kubernetes Dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy)* in your local browser and insert the token you obtainer
 
 ## Configure Workstation to connect to *k3s*
 
