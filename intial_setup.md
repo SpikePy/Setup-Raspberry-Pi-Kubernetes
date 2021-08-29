@@ -114,8 +114,10 @@ kubectl apply -f setup_dashboard.yaml && rm setup_dashboard.yaml
 # Get Login-Token
 kubectl describe secret --namespace=kubernetes-dashboard admin-user-token | grep token:
 
-# Forward Ports from k3s machine to local
+# Forward all ports from k3s machine to local
 kubectl proxy
+# Forward just port 8001 for the dashboard from k3s machine to local
+kubectl proxy --port=8001
 ```
 
 Open the *[Kubernetes Dashboard](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy)* in your local browser and insert the token you obtainer
