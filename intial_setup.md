@@ -12,37 +12,55 @@
 
 # Configure *Raspberry Pi OS*
 
-- enable ssh
-  1. mount the newly created boot-partition and `cd` into it
-  2. touch .../boot/ssh (windows auto-mounts the *boot* partition)
-- setup WLAN
-  1. mount the newly created boot-partition and `cd` into it
-  2. vim .../boot/wpa_supplicant.conf
-     ```
-     country=DE
-     ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-     update_config=1
+## Enable SSH
+
+1. mount the newly created boot-partition and `cd` into it
+2. touch .../boot/ssh (windows auto-mounts the *boot* partition)
+
+## Setup WLAN
+
+1. mount the newly created boot-partition and `cd` into it
+2. vim .../boot/wpa_supplicant.conf
+   ```
+   country=DE
+   ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+   update_config=1
      
-     network={
-         ssid="$SSID"
-         psk="$KEY"
-     }
-     ```
-- [configure your keyboard layout](https://www.makeuseof.com/change-keyboard-layout-raspberry-pi/) (default=uk)
-  - by running `sudo raspi-config` ➜ *5 Localisation Options* ➜ *L3 Keyboard* ➜
-  - or edititing the config file `sudo nano /etc/default/keyboard`
-    ```
-    XKBMODEL="pc105"
-    XKBLAYOUT="us"
-    XKBVARIANT="altgr-intl"
-    ```
-- configure your timezone (default=London)
-  - by running `sudo raspi-config` ➜ *5 Localisation Options* ➜ *L2 Timezone* ➜ Europe ➜ Berlin
-  - or by manually linking localtime to your timezone
-    ```
-    ln --symbolic /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-    ```
+   network={
+       ssid="$SSID"
+       psk="$KEY"
+   }
+   ```
+   
+## Configure keyboard layout (default=uk) ([Source](https://www.makeuseof.com/change-keyboard-layout-raspberry-pi/))
+- by running `sudo raspi-config` ➜ *5 Localisation Options* ➜ *L3 Keyboard* ➜
+- or edititing the config file `sudo nano /etc/default/keyboard`
+  ```
+  XKBMODEL="pc105"
+  XKBLAYOUT="us"
+  XKBVARIANT="altgr-intl"
+  ```
   
+
+
+## Configure your timezone (default=London)
+
+- by running `sudo raspi-config` ➜ *5 Localisation Options* ➜ *L2 Timezone* ➜ Europe ➜ Berlin
+- or by manually linking localtime to your timezone
+  ```
+  ln --symbolic /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+  ```
+
+## Enable Power Button to comfortably Shutdown/Start Pi
+
+Edit the boot file via `sudo vim /boot/config.txt` and append the following line to
+enable Shutdown and Startup via a push button on pin 3. ([Source](https://bitreporter.de/raspberrypi/richtiger-an-ausschalter-fur-den-raspberry-pi/#Ein-Ausschalter_in_der_Raspberry_Pi_Firmware_aktivieren))
+
+```
+# Enable Shutdown/Start via push button on pin 3
+dtoverlay=gpio-shutdown,gpio_pin=3, active_low=1,gpio_pull=up
+```
+
 # Setup k3s
 
 ## Preparation
