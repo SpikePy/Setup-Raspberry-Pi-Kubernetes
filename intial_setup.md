@@ -17,6 +17,12 @@
 1. mount the newly created boot-partition and `cd` into it
 2. touch .../boot/ssh (windows auto-mounts the *boot* partition)
 
+### Login with ssh key instead of password
+
+When the Pi is running add your public key (locally stored in ~/.ssh/id_rsa by default) to the Pis *~/.ssh/authorized_keys* by running e.g. `ssh-copy-id pi@${IP_RASPBERRY_PI}`. If it's not in the default location use the option `-i ${PATH_TO_PUBLICK_SSH_KEY}`.
+
+
+
 ## Setup WLAN
 
 1. mount the newly created boot-partition and `cd` into it
@@ -30,7 +36,7 @@
        ssid="$SSID"
        psk="$KEY"
    }
-   ```
+   ``` 
    
 ## Configure keyboard layout (default=uk) ([Source](https://www.makeuseof.com/change-keyboard-layout-raspberry-pi/))
 - by running `sudo raspi-config` ➜ *5 Localisation Options* ➜ *L3 Keyboard* ➜
