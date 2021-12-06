@@ -19,7 +19,7 @@
 
 ### Login with ssh key instead of password
 
-When the Pi is running add your public key (locally stored in ~/.ssh/id_rsa by default) to the Pis *~/.ssh/authorized_keys* by running e.g. `ssh-copy-id pi@${IP_RASPBERRY_PI}`. If it's not in the default location use the option `-i ${PATH_TO_PUBLICK_SSH_KEY}`.
+When the Pi is running add your public key (locally stored in \~/.ssh/id_rsa by default) to the Pis *\~/.ssh/authorized_keys* by running e.g. `ssh-copy-id pi@${IP_RASPBERRY_PI}`. If it's not in the default location use the option `-i ${PATH_TO_PUBLICK_SSH_KEY}`.
 
 
 
