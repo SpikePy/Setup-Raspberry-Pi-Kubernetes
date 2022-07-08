@@ -75,6 +75,7 @@ sudo apt install --yes \
 
 ```bash
 ssh-keygen -t rsa -b 4096 -C "pi zero (blue)"
+cat ~/.ssh/id_rsa.pub
 ```
 
 ## Enable Power Button to comfortably Shutdown/Start Pi
