@@ -1,27 +1,19 @@
 # Install *Raspberry Pi OS*
+
 ## From a Linux Host
+
 1. Download the most recent arm64 [image](http://downloads.raspberrypi.org/raspios_arm64/images/)
 2. connect your micro-sd card and find out its device name `lsblk -p`
 3. unzip and write it to the sd-card `unzip -p 2021-03-04-raspios-buster-armhf.zip | sudo dd of=/dev/sdX bs=4M conv=fsync`
 4. change the size of the root partition to span over the whole card with: tbd
 
 ## From a Windows Host
+
 1. Download the [Raspberry Pi installer](https://www.raspberrypi.org/software/)
 2. Select your disti and write it to the sd card
 
 
 # Configure *Raspberry Pi OS*
-
-## Enable SSH
-
-1. mount the newly created boot-partition and `cd` into it
-2. touch .../boot/ssh (windows auto-mounts the *boot* partition)
-
-### Login with ssh key instead of password
-
-When the Pi is running add your public key (locally stored in \~/.ssh/id_rsa by default) to the Pis *\~/.ssh/authorized_keys* by running e.g. `ssh-copy-id pi@${IP_RASPBERRY_PI}`. If it's not in the default location use the option `-i ${PATH_TO_PUBLICK_SSH_KEY}`.
-
-
 
 ## Setup WLAN
 
@@ -37,8 +29,18 @@ When the Pi is running add your public key (locally stored in \~/.ssh/id_rsa by 
        psk="$KEY"
    }
    ``` 
-   
+
+## Enable SSH
+
+1. mount the newly created boot-partition and `cd` into it
+2. touch .../boot/ssh (windows auto-mounts the *boot* partition)
+
+### Login with ssh key instead of password
+
+When the Pi is running add your public key (locally stored in \~/.ssh/id_rsa by default) to the Pis *\~/.ssh/authorized_keys* by running e.g. `ssh-copy-id pi@${IP_RASPBERRY_PI}`. If it's not in the default location use the option `-i ${PATH_TO_PUBLICK_SSH_KEY}`.
+
 ## Configure keyboard layout (default=uk) ([Source](https://www.makeuseof.com/change-keyboard-layout-raspberry-pi/))
+
 - by running `sudo raspi-config` ➜ *5 Localisation Options* ➜ *L3 Keyboard* ➜
 - or edititing the config file `sudo nano /etc/default/keyboard`
   ```
@@ -56,6 +58,24 @@ When the Pi is running add your public key (locally stored in \~/.ssh/id_rsa by 
   ```
   ln --symbolic /usr/share/zoneinfo/Europe/Berlin /etc/localtime
   ```
+
+## Install Tools
+
+```bash
+sudo apt get update
+sudo apt install --yes \
+  free \
+  git \
+  htop \
+  ncdu \
+  nnn
+```
+
+## Create Public-Private-Key-Pair for Git
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "pi zero (blue)"
+```
 
 ## Enable Power Button to comfortably Shutdown/Start Pi
 
